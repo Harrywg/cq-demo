@@ -22,12 +22,12 @@ export default function BreakpointHeading({
   className = "text-2xl mb-4",
 }: BreakpointHeadingProps) {
   const breakpoints = [
-    { name: "base", value: base, hideClass: "" },
-    { name: "sm", value: sm, hideClass: "sm:hidden" },
-    { name: "md", value: md, hideClass: "md:hidden" },
-    { name: "lg", value: lg, hideClass: "lg:hidden" },
-    { name: "xl", value: xl, hideClass: "xl:hidden" },
-    { name: "2xl", value: xxl, hideClass: "2xl:hidden" },
+    { name: "base", value: base, showClass: "", hidePrefix: "" },
+    { name: "sm", value: sm, showClass: "hidden sm:block", hidePrefix: "sm:" },
+    { name: "md", value: md, showClass: "hidden md:block", hidePrefix: "md:" },
+    { name: "lg", value: lg, showClass: "hidden lg:block", hidePrefix: "lg:" },
+    { name: "xl", value: xl, showClass: "hidden xl:block", hidePrefix: "xl:" },
+    { name: "2xl", value: xxl, showClass: "hidden 2xl:block", hidePrefix: "2xl:" },
   ];
 
   const provided = breakpoints.filter((bp) => bp.value !== undefined);
@@ -42,12 +42,11 @@ export default function BreakpointHeading({
 
         if (bp.name === "base") {
           // Base is visible by default, hide at next breakpoint
-          visibilityClass = nextBp ? nextBp.hideClass : "";
+          visibilityClass = nextBp ? `${nextBp.hidePrefix}hidden` : "";
         } else {
-          // Other breakpoints: hidden by default, show at their breakpoint
-          const showClass = `hidden ${bp.name}:block`;
-          const hideClass = nextBp ? nextBp.hideClass : "";
-          visibilityClass = `${showClass} ${hideClass}`.trim();
+          // Other breakpoints: hidden by default, show at their breakpoint, hide at next
+          const hideClass = nextBp ? ` ${nextBp.hidePrefix}hidden` : "";
+          visibilityClass = `${bp.showClass}${hideClass}`;
         }
 
         return createElement(
