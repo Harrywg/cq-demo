@@ -27,7 +27,12 @@ export default function BreakpointHeading({
     { name: "md", value: md, showClass: "hidden md:block", hidePrefix: "md:" },
     { name: "lg", value: lg, showClass: "hidden lg:block", hidePrefix: "lg:" },
     { name: "xl", value: xl, showClass: "hidden xl:block", hidePrefix: "xl:" },
-    { name: "2xl", value: xxl, showClass: "hidden 2xl:block", hidePrefix: "2xl:" },
+    {
+      name: "2xl",
+      value: xxl,
+      showClass: "hidden 2xl:block",
+      hidePrefix: "2xl:",
+    },
   ];
 
   const provided = breakpoints.filter((bp) => bp.value !== undefined);
